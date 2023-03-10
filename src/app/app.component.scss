@@ -1,0 +1,60 @@
+.chat-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+  }
+
+.chat-button {
+    background-image: linear-gradient(to bottom, #00bfff, #87cefa);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+
+  .chat-button:hover {
+    background-image: linear-gradient(to bottom, #ffff, #ffff);
+    color: #00bfff;
+    transform: scale(1.1);
+  }
+
+  .chat-button:hover i {
+    transform: rotate(180deg);
+  }
+
+  .chat-button i {
+    margin-right: 10px;
+    transition: all 0.3s ease;
+  }
+
+  /* Estilos para el contenedor del modal */
+.nb-dialog-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999; /* Asegura que el modal esté encima de todo */
+}
+
+/* Estilos para el fondo del modal */
+.nb-theme-default .nb-dialog-with-header::before {
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+}
+
+nb-chat {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 0;
+  max-width: 600px;
+  width: 300px;
+}

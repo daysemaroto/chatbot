@@ -1,0 +1,22 @@
+<nb-layout >
+  <nb-layout-column left class="colored-column-success">
+    <div class="chat-widget">
+      <button nbButton class="chat-button" (click)="showChat()" (mouseenter)="changeIcon()" (mouseleave)="changeIcon()">
+        <nb-icon [icon]="currentIcon"></nb-icon>
+      </button>
+      <nb-chat *ngIf="isShowChat" title="Nebular Conversational UI" size="large">
+        <nb-chat-message *ngFor="let msg of messages"
+                         [type]="msg.type"
+                         [message]="msg.text"
+                         [reply]="msg.reply"
+                         [sender]="msg.user.name"
+                         [date]="msg.date"
+                         [quote]="msg.quote"
+                         [avatar]="msg.user.avatar">
+        </nb-chat-message>
+        <nb-chat-form (send)="sendMessage($event)">
+        </nb-chat-form>
+      </nb-chat>
+    </div>
+  </nb-layout-column>
+</nb-layout>
