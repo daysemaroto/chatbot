@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { APP_BASE_HREF } from '@angular/common';
+import { RouterModule } from '@angular/router'; // we also need angular router for Nebular to function properly
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +31,9 @@ import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
       serverLogLevel: NgxLoggerLevel.ERROR
     }),
   ],
+  exports: [RouterModule],
   providers: [
+    {provide: APP_BASE_HREF, useValue: '/'},
   ],
   bootstrap: [AppComponent]
 })

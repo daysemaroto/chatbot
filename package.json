@@ -5,8 +5,10 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "npm run build -- --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "test-pwa-ssl": "npm run build:prod && cd dist && http-server-ssl -S "
   },
   "private": true,
   "dependencies": {
@@ -26,7 +28,8 @@
     "ngx-logger": "^5.0.11",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "http-server-ssl": "0.0.7"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.0.6",
