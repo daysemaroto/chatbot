@@ -4,7 +4,7 @@
       <button nbButton class="chat-button" (click)="showChat()" (mouseenter)="changeIcon()" (mouseleave)="changeIcon()">
         <nb-icon [icon]="currentIcon"></nb-icon>
       </button>
-      <nb-chat *ngIf="isShowChat" title="Nebular Conversational UI" size="large">
+      <nb-chat *ngIf="isShowChat" title="Chat AI" size="large" status="warning">
         <nb-chat-message *ngFor="let msg of messages"
                          [type]="msg.type"
                          [message]="msg.text"

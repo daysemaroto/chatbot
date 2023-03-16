@@ -30,7 +30,7 @@ export class AppComponent {
     this.isShowChat = !this.isShowChat;
   }
 
-  sendMessage(event: any) {
+  async sendMessage(event: any) {
     const files = !event.files ? [] : event.files.map((file: any) => {
       return {
         url: file.src,
@@ -45,12 +45,12 @@ export class AppComponent {
       reply: true,
       type: files.length ? 'file' : 'text',
       user: {
-        name: 'Jonh Doe',
-        avatar: 'https://i.gifer.com/no.gif',
+        name: 'Customer',
+        avatar: 'https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/robot-face.png',
       },
     });
     this.saveConversationToCookies(this.messages);
-    const botReply = this.chatShowcaseService.reply(event.message);
+    const botReply = await this.chatShowcaseService.reply(event.message);
 
     if (botReply) {
       setTimeout(() => {
