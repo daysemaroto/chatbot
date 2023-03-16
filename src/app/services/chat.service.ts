@@ -72,8 +72,6 @@ export class ChatShowcaseService {
     }
   }
 
-
-
   handleError(error: any) {
     const errMsg = error.message ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'ServerError';

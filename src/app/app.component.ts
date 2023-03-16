@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ChatShowcaseService } from './services/chat.service';
-import { CookieService } from 'ngx-cookie-service';
+import { BehaviorIdbService } from './utils/behaviorIdb.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,17 +9,18 @@ import { CookieService } from 'ngx-cookie-service';
 export class AppComponent {
   title = 'chatbot';
   currentIcon = 'message-square-outline';
-  messages: any[] = [];
   isShowChat: boolean = false;
+  messages: any;
+  messageSaved: any;
 
   constructor(
     protected chatShowcaseService: ChatShowcaseService,
-    private cookieService: CookieService,
-    ) {
-    this.messages = this.getConversationFromCookies();
-  }
+    private behaviorIdbService: BehaviorIdbService,
+    ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    const localMessages = await this.behaviorIdbService.getMessages();
+    this.messages = Object.values(localMessages);
   }
 
   changeIcon() {
@@ -39,7 +40,7 @@ export class AppComponent {
       };
     });
 
-    this.messages.push({
+    const message = {
       text: event.message,
       date: new Date(),
       reply: true,
@@ -48,28 +49,17 @@ export class AppComponent {
         name: 'Customer',
         avatar: 'https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/robot-face.png',
       },
-    });
-    this.saveConversationToCookies(this.messages);
+    };
+    this.messageSaved = await this.behaviorIdbService.addMessage(message);
+    this.messages.push(this.messageSaved);
+
     const botReply = await this.chatShowcaseService.reply(event.message);
 
     if (botReply) {
-      setTimeout(() => {
-        this.messages.push(botReply),
-        this.saveConversationToCookies(this.messages);
+      setTimeout(async () => {
+        this.messageSaved =  await this.behaviorIdbService.addMessage(botReply);
+        this.messages.push(this.messageSaved);
       }, 500);
-    }
-  }
-
-  saveConversationToCookies(messages: any[]): void {
-    this.cookieService.set('messages', JSON.stringify(messages));
-  }
-
-  getConversationFromCookies(): any[] {
-    const conversationString = this.cookieService.get('messages');
-    if (conversationString) {
-      return JSON.parse(conversationString);
-    } else {
-      return [];
     }
   }
 }
